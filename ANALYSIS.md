@@ -10,38 +10,45 @@ This is an **interactive color pattern generator** that creates and displays dec
 - **Enforces color balance** - each of the 7 colors should appear exactly 12 times per pattern
 - **Provides real-time validation** showing which colors are over/under represented
 
-## Critical Bugs Found
+## ✅ Completed Work (Recent Commits)
 
-### 1. 🔴 Color Picker Crash (Line 776)
-**Severity: Critical - Breaks core functionality**
+### Commit 1: Refactor - Split JavaScript & Add Build System
+**Date:** Latest commit
+**Changes:**
+- ✅ Extracted all JavaScript from inline `<script>` to `src/app.js` (580+ lines)
+- ✅ Set up esbuild for bundling and minification (7.1kb minified output)
+- ✅ Added build scripts: `npm run build`, `npm run dev` (watch mode)
+- ✅ Updated Vercel configuration with automated build process
+- ✅ Created comprehensive `.gitignore` for clean repo
+- ✅ **FIXED:** Color picker crash bug (event parameter)
+- ✅ **FIXED:** Color customization functionality now works (hex inputs update CSS variables in real-time)
 
-```javascript
-function showColorPicker(square, currentColor) {
-  // ... code ...
-  let left = event.clientX;  // ❌ 'event' is not defined!
-  let top = event.clientY;
-```
+### Commit 2: Grid Size Change
+**Changes:**
+- ✅ Changed grid from 13×7 to 14×6 (84 squares total)
+- ✅ Updated TARGET_COUNT from 13 to 12 squares per color
 
-**Problem:** The `event` variable doesn't exist in this scope. Clicking any square will throw a ReferenceError.
+### Commit 3: Sandbox Initialization
+**Changes:**
+- ✅ Added white color class to CSS palette
+- ✅ Sandbox now initializes with clickable white squares on page load
+- ✅ Extended color picker to support 8 colors (1-8 keyboard shortcuts)
+- ✅ Improved UX: sandbox is immediately interactive instead of empty
 
-**Fix:** Pass the event as a parameter or use a global/closure approach.
+## 🐛 Known Bugs (Still Outstanding)
 
-### 2. 🟡 Color Customization UI Non-Functional (Lines 189-293)
-**Severity: High - Feature doesn't work**
-
-The side panel has 7 hex color inputs with `data-color` attributes, but there's **no JavaScript code** that listens to changes or updates the CSS variables.
-
-**Impact:** Users can type in the inputs but nothing happens.
-
-### 3. 🟡 User-Saved Patterns Not Persisted (Line 878)
+### 1. 🟡 User-Saved Patterns Not Persisted
 **Severity: Medium - Data loss**
 
 When you save a custom pattern from the sandbox, it's added to `patterns.savedPatterns` array but **never saved to localStorage**. Refreshing the page loses all user-created patterns.
 
+**Status:** Not fixed yet
+
 ## Improvement Suggestions
 
 ### Monetization
-Add a "Buy me a coffee
+Add a "Buy me a coffee" and integrate directly with Stripe to accept donations. 
+
 ### A. User Experience Enhancements
 
 1. **Undo/Redo Functionality**
@@ -50,7 +57,7 @@ Add a "Buy me a coffee
 
 2. **Export Capabilities**
    - Export pattern as PNG image
-   - Export as CSS/SVG code
+   - Integrate with resend for a "email to someone"
    - Share patterns via URL parameters
 
 3. **Better Visual Feedback**
@@ -65,8 +72,6 @@ Add a "Buy me a coffee
    - Sort/reorder patterns
 
 5. **Enhanced Color Picker**
-   - names of colours should be updated to match what's been picked
-   - clicking on the coloured square should show a hover modal where a new hex colour can be selected. 
    - Show current color selection more clearly
    - Display color names, not just numbers
    - Preview what the square will look like before committing
@@ -76,7 +81,6 @@ Add a "Buy me a coffee
 6. **Pattern Algorithms**
    - Add more pattern types (checkerboard, spiral, gradient, etc.)
    - Allow users to configure algorithm parameters (e.g., eye positions for Bug-Eye)
-   - Pattern randomization with seed for reproducibility
 
 7. **Grid Flexibility**
    - Allow custom grid sizes (not just 14×6)

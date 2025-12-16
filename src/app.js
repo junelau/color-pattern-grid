@@ -19,6 +19,9 @@ const colors = [
   "magenta",
 ];
 
+// All colors including white for picker
+const allColors = ["white", ...colors];
+
 // Pattern storage
 const patterns = {
   [PATTERN_TYPES.DIAGONAL]: [],
@@ -323,7 +326,7 @@ function testColorCounts(patternId) {
 function handleSquareClick(event) {
   const square = event.target;
   const currentColor = Array.from(square.classList).find((className) =>
-    colors.includes(className)
+    allColors.includes(className)
   );
   showColorPicker(event, square, currentColor);
 }
@@ -379,7 +382,7 @@ function showColorPicker(event, square, currentColor) {
   dialog.style.top = `${top}px`;
 
   // Create color options with keyboard shortcuts
-  colors.forEach((color, index) => {
+  allColors.forEach((color, index) => {
     const option = document.createElement("div");
     option.className = `color-option ${color} ${
       color === currentColor ? "selected" : ""
@@ -410,8 +413,8 @@ function showColorPicker(event, square, currentColor) {
   // Add keyboard event listener
   const handleKeyPress = (event) => {
     const num = parseInt(event.key);
-    if (num >= 1 && num <= colors.length) {
-      const color = colors[num - 1];
+    if (num >= 1 && num <= allColors.length) {
+      const color = allColors[num - 1];
       square.classList.remove(currentColor);
       square.classList.add(color);
       closeDialog();
@@ -556,6 +559,15 @@ function initializeColorCustomization() {
   });
 }
 
+// Initialize sandbox with white squares
+function initializeSandbox() {
+  const pattern = Array(GRID_SIZE.rows)
+    .fill()
+    .map(() => Array(GRID_SIZE.cols).fill("white"));
+
+  renderPattern("sandbox", pattern);
+}
+
 // Initialize patterns
 function initializePatterns() {
   // Clear all patterns first
@@ -579,6 +591,9 @@ function initializePatterns() {
     renderPattern(patternId, pattern);
     testColorCounts(patternId);
   });
+
+  // Initialize sandbox with white squares
+  initializeSandbox();
 }
 
 // Initialize on page load
