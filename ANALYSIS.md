@@ -104,6 +104,10 @@ Add a "Buy me a coffee" and integrate directly with Stripe to accept donations.
     - Import/export as JSON
     - QR code generation for sharing
 
+11. Upload your own granny squares
+    - Allow users to replace each color with an image of a granny square they have made
+    
+
 ### C. Code Quality Improvements
 
 11. **Architecture**
