@@ -454,7 +454,7 @@ function saveSandboxPattern() {
     for (let j = 0; j < GRID_SIZE.cols; j++) {
       const square = squares[i + j];
       const colorClass = Array.from(square.classList).find((className) =>
-        colors.includes(className)
+        allColors.includes(className)
       );
       row.push(colorClass);
     }
@@ -470,6 +470,9 @@ function saveSandboxPattern() {
 
   // Add to saved patterns
   patterns.savedPatterns.push(newPattern);
+
+  // Save to localStorage
+  localStorage.setItem('savedPatterns', JSON.stringify(patterns.savedPatterns));
 
   // Create new pattern section in showcase
   const showcaseContainer = document.querySelector(".space-y-8");
@@ -568,6 +571,51 @@ function initializeSandbox() {
   renderPattern("sandbox", pattern);
 }
 
+// Restore saved patterns from localStorage
+function restoreSavedPatterns() {
+  const savedPatternsData = localStorage.getItem('savedPatterns');
+
+  if (!savedPatternsData) {
+    return; // No saved patterns
+  }
+
+  try {
+    const savedPatterns = JSON.parse(savedPatternsData);
+    patterns.savedPatterns = savedPatterns;
+
+    // Render each saved pattern
+    const showcaseContainer = document.querySelector(".space-y-8");
+
+    savedPatterns.forEach((savedPattern) => {
+      // Create new pattern section in showcase
+      const newPatternSection = document.createElement("div");
+      newPatternSection.className = "bg-white rounded-lg shadow-md p-6";
+      newPatternSection.innerHTML = `
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold">${savedPattern.name}</h2>
+        </div>
+        <div class="flex gap-6">
+          <div class="w-64">
+            <p id="${savedPattern.id}-error" class="text-red-500 text-sm font-mono"></p>
+          </div>
+          <div class="relative">
+            <div class="grid" id="${savedPattern.id}"></div>
+          </div>
+        </div>
+      `;
+      showcaseContainer.appendChild(newPatternSection);
+
+      // Render the pattern
+      renderPattern(savedPattern.id, savedPattern.pattern);
+      testColorCounts(savedPattern.id);
+    });
+  } catch (error) {
+    console.error('Failed to restore saved patterns:', error);
+    // Clear corrupted data
+    localStorage.removeItem('savedPatterns');
+  }
+}
+
 // Initialize patterns
 function initializePatterns() {
   // Clear all patterns first
@@ -591,6 +639,9 @@ function initializePatterns() {
     renderPattern(patternId, pattern);
     testColorCounts(patternId);
   });
+
+  // Restore saved patterns from localStorage
+  restoreSavedPatterns();
 
   // Initialize sandbox with white squares
   initializeSandbox();

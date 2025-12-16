@@ -13,10 +13,9 @@ This is an **interactive color pattern generator** that creates and displays dec
 ## ✅ Completed Work (Recent Commits)
 
 ### Commit 1: Refactor - Split JavaScript & Add Build System
-**Date:** Latest commit
 **Changes:**
-- ✅ Extracted all JavaScript from inline `<script>` to `src/app.js` (580+ lines)
-- ✅ Set up esbuild for bundling and minification (7.1kb minified output)
+- ✅ Extracted all JavaScript from inline `<script>` to `src/app.js` (600+ lines)
+- ✅ Set up esbuild for bundling and minification
 - ✅ Added build scripts: `npm run build`, `npm run dev` (watch mode)
 - ✅ Updated Vercel configuration with automated build process
 - ✅ Created comprehensive `.gitignore` for clean repo
@@ -35,14 +34,24 @@ This is an **interactive color pattern generator** that creates and displays dec
 - ✅ Extended color picker to support 8 colors (1-8 keyboard shortcuts)
 - ✅ Improved UX: sandbox is immediately interactive instead of empty
 
+### Commit 4: Documentation Updates
+**Changes:**
+- ✅ Created comprehensive CLAUDE.md workflow guide
+- ✅ Added pre-commit checklist reminder
+- ✅ Documented project structure and common tasks
+
+### Commit 5: Fix User-Saved Patterns Persistence Bug
+**Changes:**
+- ✅ **FIXED:** User-saved patterns now persist to localStorage
+- ✅ Added `restoreSavedPatterns()` function to load patterns on page load
+- ✅ Patterns automatically restore with names and color data intact
+- ✅ Added error handling for corrupted localStorage data
+- ✅ Updated `saveSandboxPattern()` to use `allColors` (includes white)
+- ✅ Build size: 8.0kb (up from 7.1kb due to new functionality)
+
 ## 🐛 Known Bugs (Still Outstanding)
 
-### 1. 🟡 User-Saved Patterns Not Persisted
-**Severity: Medium - Data loss**
-
-When you save a custom pattern from the sandbox, it's added to `patterns.savedPatterns` array but **never saved to localStorage**. Refreshing the page loses all user-created patterns.
-
-**Status:** Not fixed yet
+_No critical bugs at this time!_ 🎉
 
 ## Improvement Suggestions
 
@@ -57,7 +66,6 @@ Add a "Buy me a coffee" and integrate directly with Stripe to accept donations.
 
 2. **Export Capabilities**
    - Export pattern as PNG image
-   - Integrate with resend for a "email to someone"
    - Share patterns via URL parameters
 
 3. **Better Visual Feedback**
@@ -106,7 +114,7 @@ Add a "Buy me a coffee" and integrate directly with Stripe to accept donations.
 
 11. Upload your own granny squares
     - Allow users to replace each color with an image of a granny square they have made
-    
+
 
 ### C. Code Quality Improvements
 
