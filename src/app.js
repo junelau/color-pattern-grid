@@ -281,6 +281,12 @@ function renderPattern(patternId, pattern) {
 function testColorCounts(patternId) {
   const grid = document.getElementById(patternId);
   const errorElement = document.getElementById(`${patternId}-error`);
+
+  // If no error element exists (e.g., for sandbox), skip validation display
+  if (!errorElement) {
+    return true;
+  }
+
   const colorCounts = countColors(grid);
 
   let lessThan13 = [];

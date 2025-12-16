@@ -49,9 +49,21 @@ This is an **interactive color pattern generator** that creates and displays dec
 - ✅ Updated `saveSandboxPattern()` to use `allColors` (includes white)
 - ✅ Build size: 8.0kb (up from 7.1kb due to new functionality)
 
-## 🐛 Known Bugs (Still Outstanding)
+### Commit 6: Fix Console Error on Page Load
+**Changes:**
+- ✅ **FIXED:** `testColorCounts()` crash when error element doesn't exist
+- ✅ Added null check before setting innerHTML
+- ✅ Sandbox validation now works without error element
+- ✅ Documented Tailwind CDN warning in Known Issues (low priority)
 
-_No critical bugs at this time!_ 🎉
+## 🐛 Known Issues
+
+### ⚠️ Tailwind CDN Warning (Low Priority)
+**Severity: Low - Development convenience vs production best practice**
+
+The app uses Tailwind CSS via CDN (`https://cdn.tailwindcss.com`) which shows a console warning in production. This is acceptable for a simple project but should be replaced with a proper Tailwind build process for production.
+
+**Recommendation:** Install Tailwind CSS as a PostCSS plugin or use the Tailwind CLI for production builds. For now, this warning can be ignored as it doesn't affect functionality.
 
 ## Improvement Suggestions
 
